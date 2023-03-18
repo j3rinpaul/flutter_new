@@ -15,17 +15,16 @@ class _ListViewSampleState extends State<ListViewSample> {
           title: Text("List VIew"),
           backgroundColor: Colors.green[800],
         ),
-        body: ListView.separated( //listview.bilder and listview.seperated is the most efficent cause it loads items which are at the visible range
+        body: ListView.separated(
+            //listview.bilder and listview.seperated is the most efficent cause it loads items which are at the visible range
             itemBuilder: (ctx, index) {
               return ListTile(
                 //listtile is a widget that has the same ui as that of the whatsapp chat
                 leading: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Color.fromARGB(255, 5, 83, 11),
-                  backgroundImage: NetworkImage(
-                    "https://thumbs.dreamstime.com/b/lovely-blonde-bikini-model-posing-outdoors-caribbean-beach-beautiful-blonde-bikini-model-enjoys-weather-outdoors-229350656.jpg",
-                  ),
-                ), //the image or avatar that is to be shown
+                    radius: 30,
+                    backgroundColor: Color.fromARGB(255, 5, 83, 11),
+                    backgroundImage: AssetImage(
+                        "assets/images/images.jpg")), //the image or avatar that is to be shown
                 title: Text(
                     "Person $index"), //the main title ie,the name of the contact in whatsapp
                 subtitle: Text(
