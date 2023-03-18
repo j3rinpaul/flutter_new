@@ -11,24 +11,19 @@ class _ListViewSampleState extends State<ListViewSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("List VIew"),
-      ),
-      body: Center(
-        child: ListView(
-          //for listing elements listview is used
-          //if column is used the pixels would break at the very end and that would result in error
-
-          children: List.generate(100, (index) {
-            return Column(
-              children: [
-                Text("List View $index"),
-                Divider(),
-              ],
-            );
-          }),
+        appBar: AppBar(
+          title: Text("List VIew"),
         ),
-      ),
-    );
+        body: ListView.separated(
+          //the item to be listed
+          itemBuilder: (ctx, index) {
+            return Text("List View Seperated $index");
+          },
+          //what should seperate the item with
+          separatorBuilder: (ctx, index) {
+            return Divider();
+          },
+          itemCount: 100, //the number of items that should be listed
+        ));
   }
 }
