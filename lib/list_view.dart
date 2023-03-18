@@ -13,17 +13,30 @@ class _ListViewSampleState extends State<ListViewSample> {
     return Scaffold(
         appBar: AppBar(
           title: Text("List VIew"),
+          backgroundColor: Colors.green[800],
         ),
-        body: ListView.separated(
-          //the item to be listed
-          itemBuilder: (ctx, index) {
-            return Text("List View Seperated $index");
-          },
-          //what should seperate the item with
-          separatorBuilder: (ctx, index) {
-            return Divider();
-          },
-          itemCount: 100, //the number of items that should be listed
-        ));
+        body: ListView.separated( //listview.bilder and listview.seperated is the most efficent cause it loads items which are at the visible range
+            itemBuilder: (ctx, index) {
+              return ListTile(
+                //listtile is a widget that has the same ui as that of the whatsapp chat
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Color.fromARGB(255, 5, 83, 11),
+                  backgroundImage: NetworkImage(
+                    "https://thumbs.dreamstime.com/b/lovely-blonde-bikini-model-posing-outdoors-caribbean-beach-beautiful-blonde-bikini-model-enjoys-weather-outdoors-229350656.jpg",
+                  ),
+                ), //the image or avatar that is to be shown
+                title: Text(
+                    "Person $index"), //the main title ie,the name of the contact in whatsapp
+                subtitle: Text(
+                    "Message $index"), //the message shown in the ui of whatsapp
+                trailing: Text(
+                    "$index:$index PM"), //the time equivalent in whatsapp ui
+              );
+            },
+            separatorBuilder: (ctx, index) {
+              return Divider();
+            },
+            itemCount: 50));
   }
 }
