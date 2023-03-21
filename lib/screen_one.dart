@@ -16,20 +16,19 @@ class ScreenOne extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("MultiScreen"),
-
             ElevatedButton(
                 onPressed: () {
                   //navigator is a stack and the home page is initally pushed into the stack
                   //we push the second page on top of the stack
-                  Navigator.of(context).push(
-                    //as we are using the material ui we use materialpageroute
-                    //if it was ios then the ios route will be used
-                    MaterialPageRoute(builder: (ctx) {
-                      return Screentwo();
-                  })
-                );
+                  //   Navigator.of(context).push(
+                  //     //as we are using the material ui we use materialpageroute
+                  //     //if it was ios then the ios route will be used
+                  //     MaterialPageRoute(builder: (ctx) {
+                  //       return Screentwo();
+                  //   })
+                  // );
+                  Navigator.of(context).pushNamed('screen_2');
                 },
-
                 child: Text("Screen Two"))
           ],
         ),
