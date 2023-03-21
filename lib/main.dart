@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textfield/list_view.dart';
-
+import 'package:textfield/screen_one.dart';
 
 void main() {
   runApp(Myapp());
@@ -12,8 +11,16 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.blueGrey),
-      home: ListViewSample(),
+      home: Homescreen(),
     );
+  }
+}
+
+class Homescreen extends StatelessWidget {
+  const Homescreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenOne();
   }
 }
