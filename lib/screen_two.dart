@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class Screentwo extends StatelessWidget {
-  const Screentwo({super.key});
+  final name; //to change the ui according to the data recieved as in youtube
+
+  const Screentwo({super.key, required this.name});
+  //the name is a required parameter
+  //the name is used in the ui according to input
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Screen 2"),
+        title: Text(name),
       ),
       body: SafeArea(
           child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Screen 2"),
+            Text(name),
             ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text("Return"))
+                child: Text("Return from $name"))
           ],
         ),
       )),
