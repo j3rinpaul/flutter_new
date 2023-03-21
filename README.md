@@ -14,3 +14,28 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## List View
+
+used to create ui just like a chat application 
+whatsapp
+
+has 
+-title (name | contacts)
+-subtitle (message)
+-leading(avatar|dp)
+-trailing (time)
+## Shared Preferences
+
+Seen the whatsapp that allows login once
+
+once it has been logged in the credientials are saved inside the phone 
+
+that is called shared preferences
+
+## Navigator.of(context).push|pop
+
+used to push another page on top of the home page
+
+pop is used to remove the loaded page from the top of the home page
+
