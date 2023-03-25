@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:textfield/screen_one.dart';
-import 'package:textfield/screen_two.dart';
+import 'package:textfield/screens/splash.dart';
 
 void main() {
   runApp(Myapp());
 }
 
-class Myapp extends StatelessWidget {
+class Myapp extends StatefulWidget {
   const Myapp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Homescreen(),
-      //by setting the routes we can reduce the routing code to one line
-      // we declare the routes in the main file and use pushNamed funtion to push into the named route
-
-      // routes: { //routes is a class that is just like the hashmap
-      //   'screen_1': (ctx) { //name of screen as key: a context function that returns a screen
-      //     return ScreenOne();
-      //   },
-      //   'screen_2': (context) {
-      //     return Screentwo();
-      //   }
-      // },
-    );
-  }
+  State<Myapp> createState() => _MyappState();
 }
 
-class Homescreen extends StatelessWidget {
-  const Homescreen({super.key});
+class _MyappState extends State<Myapp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    //this is called at once that is it is called initally when the app starts
+    super.initState();
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenOne();
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    //continuosly called inside the ui
+    super.didChangeDependencies();
   }
+  @override
+  Widget build(BuildContext context) {
+    //is also continously called inside tha ui
+    return MaterialApp(
+      home: ScreenSplash(),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    //to dispose a ui that has been used or to navigate to another page
+    super.dispose();
+  }
+
+
 }
-
-
