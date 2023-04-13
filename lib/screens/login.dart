@@ -12,6 +12,8 @@ class _ScreenLoginState extends State<ScreenLogin> {
   final _pass = TextEditingController();
   bool _datamatched = true;
   bool _isobscure = true;
+  final _keyvalue = GlobalKey<
+      FormState>(); //this key value takes the current data inside the form
   @override
   Widget build(BuildContext context) {
     // for each text field seperate controller is required
@@ -21,54 +23,73 @@ class _ScreenLoginState extends State<ScreenLogin> {
       body: Center(
           child: Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("mEssLab"),
-            TextField(
-              controller: _user,
-              decoration: InputDecoration(
-                  hintText: "USername",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)))),
-            ),
-            SizedBox(
-              //is to provide a small space between widgets just as margin instead of padding here sizedbox is used
-              height: 20.0,
-            ),
-            TextField(
-              controller:
-                  _pass, //controller to access the text inside the textfield
-              obscureText:
-                  _isobscure, //in case of passwords it must not be viewed inorder to make that private obscureText property is used
-              keyboardType: TextInputType.numberWithOptions(),
-              decoration: InputDecoration(
-                  hintText: "Password",
-                  suffixIcon: IconButton(
+        child: Form(
+          key: _keyvalue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("mEssLab"),
+              TextFormField(
+                //TextFormField has got another widget just to validate the data by itself
+                validator: (_) {
+                  if (_datamatched) {
+                    return null;
+                  } else {
+                    return "Error";
+                  }
+                },
+                controller: _user,
+                decoration: InputDecoration(
+                    hintText: "USername",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+              ),
+              SizedBox(
+                //is to provide a small space between widgets just as margin instead of padding here sizedbox is used
+                height: 20.0,
+              ),
+              TextFormField(
+                validator: (_) {
+                  if (_datamatched) {
+                    return null;
+                  } else {
+                    return "Error";
+                  }
+                },
+                controller:
+                    _pass, //controller to access the text inside the textfield
+                obscureText:
+                    _isobscure, //in case of passwords it must not be viewed inorder to make that private obscureText property is used
+                keyboardType: TextInputType.numberWithOptions(),
+                decoration: InputDecoration(
+                    hintText: "Password",
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isobscure = !_isobscure;
+                          });
+                        },
+                        icon: Icon(_isobscure
+                            ? Icons.visibility
+                            : Icons.visibility_off)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Visibility(
+                      visible: !_datamatched, child: Text("Wrong Password")),
+                  ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _isobscure = !_isobscure;
-                        });
+                        // checkLog(context);
+                        _keyvalue.currentState!.validate(); //this validate is based on the validate function we declared inside the textformfield
                       },
-                      icon: Icon(_isobscure
-                          ? Icons.visibility
-                          : Icons.visibility_off)),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)))),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Visibility(
-                    visible: !_datamatched, child: Text("Wrong Password")),
-                ElevatedButton(
-                    onPressed: () {
-                      checkLog(context);
-                    },
-                    child: Text("Login")),
-              ],
-            )
-          ],
+                      child: Text("Login")),
+                ],
+              )
+            ],
+          ),
         ),
       )),
     );
