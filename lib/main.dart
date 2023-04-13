@@ -1,41 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:textfield/screens/splash.dart';
 
-import 'package:textfield/screen_one.dart';
+
 
 void main() {
   runApp(Myapp());
 }
 
-class Myapp extends StatelessWidget {
+class Myapp extends StatefulWidget {
   const Myapp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Homescreen(),
-      //by setting the routes we can reduce the routing code to one line
-      // we declare the routes in the main file and use pushNamed funtion to push into the named route
-
-      // routes: { //routes is a class that is just like the hashmap
-      //   'screen_1': (ctx) { //name of screen as key: a context function that returns a screen
-      //     return ScreenOne();
-      //   },
-      //   'screen_2': (context) {
-      //     return Screentwo();
-      //   }
-      // },
-    );
-  }
+  State<Myapp> createState() => _MyappState();
 }
 
-class Homescreen extends StatelessWidget {
-  const Homescreen({super.key});
+/*                               ___________
+                               |            \
+                              |              \ 
+------->(init state)------------->(build | didchangedependencies)-------------->(dispose) */
+
+/*init state : before the component is being loaded only once
+  didchangedependencies and build methods are continiously called
+  dipose : when the screen is disposed(to remove from the memory)
+ */
+
+class _MyappState extends State<Myapp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    //this is called at once that is it is called initally when the app starts
+  //all functions are called before calling the parent cause we need to finish all the work before the parent arrives
+    super.initState();
+  }
+
+  
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    //continuosly called inside the ui
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ScreenOne();
+    //is also continously called inside tha ui
+    return MaterialApp(
+      home: ScreenSplash(),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    //to dispose a ui that has been used or to navigate to another page
+    super.dispose();
   }
 }
 
+/*instead of return we can use
 
+  sum(a,b) => a+b;
+
+ */
