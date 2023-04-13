@@ -10,9 +10,10 @@ class ScreenLogin extends StatefulWidget {
 class _ScreenLoginState extends State<ScreenLogin> {
   final _user = TextEditingController();
   final _pass = TextEditingController();
+  bool _datamatched = true;
+  bool _isobscure = true;
   @override
   Widget build(BuildContext context) {
-    bool _obscureText = true;
     // for each text field seperate controller is required
     //
 
@@ -39,18 +40,34 @@ class _ScreenLoginState extends State<ScreenLogin> {
               controller:
                   _pass, //controller to access the text inside the textfield
               obscureText:
-                  _obscureText, //in case of passwords it must not be viewed inorder to make that private obscureText property is used
+                  _isobscure, //in case of passwords it must not be viewed inorder to make that private obscureText property is used
               keyboardType: TextInputType.numberWithOptions(),
               decoration: InputDecoration(
                   hintText: "Password",
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _isobscure = !_isobscure;
+                        });
+                      },
+                      icon: Icon(_isobscure
+                          ? Icons.visibility
+                          : Icons.visibility_off)),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)))),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  checkLog(context);
-                },
-                child: Text("Login"))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Visibility(
+                    visible: !_datamatched, child: Text("Wrong Password")),
+                ElevatedButton(
+                    onPressed: () {
+                      checkLog(context);
+                    },
+                    child: Text("Login")),
+              ],
+            )
           ],
         ),
       )),
@@ -81,6 +98,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
               ],
             );
           });
+      setState(() {
+        _datamatched = true;
+      });
     } else {
       //snackbar:viewed in the current context
       //accessing the scaffold messanger as this is of another function
@@ -104,6 +124,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
               ],
             );
           });
+      setState(() {
+        _datamatched = false;
+      });
     }
   }
 }
