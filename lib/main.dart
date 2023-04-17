@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:textfield/screens/splash.dart';
 
-
+const SAVE_KEY = "Your Key";
 
 void main() {
   runApp(Myapp());
@@ -29,11 +29,10 @@ class _MyappState extends State<Myapp> {
   void initState() {
     // TODO: implement initState
     //this is called at once that is it is called initally when the app starts
-  //all functions are called before calling the parent cause we need to finish all the work before the parent arrives
+    //all functions are called before calling the parent cause we need to finish all the work before the parent arrives
     super.initState();
   }
 
-  
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies

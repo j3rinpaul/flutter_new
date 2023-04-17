@@ -1,4 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:textfield/screens/home.dart';
+
+import '../main.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -31,11 +37,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
               Text("mEssLab"),
               TextFormField(
                 //TextFormField has got another widget just to validate the data by itself
-                validator: (_) {
-                  if (_datamatched) {
-                    return null;
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Error Value";
                   } else {
-                    return "Error";
+                    return null;
                   }
                 },
                 controller: _user,
@@ -49,11 +55,11 @@ class _ScreenLoginState extends State<ScreenLogin> {
                 height: 20.0,
               ),
               TextFormField(
-                validator: (_) {
-                  if (_datamatched) {
-                    return null;
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Error Value";
                   } else {
-                    return "Error";
+                    return null;
                   }
                 },
                 controller:
@@ -83,7 +89,10 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   ElevatedButton(
                       onPressed: () {
                         // checkLog(context);
-                        _keyvalue.currentState!.validate(); //this validate is based on the validate function we declared inside the textformfield
+                        if (_keyvalue.currentState!.validate()) {
+                          checkLog(context);
+                        }
+                        //this validate is based on the validate function we declared inside the textformfield
                       },
                       child: Text("Login")),
                 ],
@@ -95,7 +104,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
     );
   }
 
-  void checkLog(BuildContext ctx) {
+  void checkLog(BuildContext ctx) async {
     //actually buildcontext is a local parameter of build widget
     //as an ui is being edited in this buildcontext is passed as params and this function is passed into the build widget some button
 
@@ -104,24 +113,32 @@ class _ScreenLoginState extends State<ScreenLogin> {
     final password = _pass.text;
 
     if (username == password) {
-      showDialog(
-          context: context,
-          builder: (ctx2) {
-            return AlertDialog(
-              title: Text("Password Matched"),
-              content: Text("You Entered Correct password bitch.."),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(ctx2).pop();
-                    },
-                    child: Text("Close"))
-              ],
-            );
-          });
-      setState(() {
-        _datamatched = true;
-      });
+      // showDialog(
+      //     context: context,
+      //     builder: (ctx2) {
+      //       return AlertDialog(
+      //         title: Text("Password Matched"),
+      //         content: Text("You Entered Correct password bitch.."),
+      //         actions: [
+      //           TextButton(
+      //               onPressed: () {
+      //                 Navigator.of(ctx2).pop();
+      //               },
+      //               child: Text("Close"))
+      //         ],
+      //       );
+      //     });
+      // setState(() {
+      //   _datamatched = true;
+      // });
+      final sharedprefs = await SharedPreferences.getInstance();
+      //on login the true value is assigned into the save_key and later it is checked and other functions are initated
+      await sharedprefs.setBool(SAVE_KEY, true);
+      
+      Navigator.of(ctx)
+          .pushReplacement(MaterialPageRoute(builder: (ctx1) => ScreenHome()));
+      //the login should be replaced by the home screen
+      //login is of ctx and it is replaced by ctx1
     } else {
       //snackbar:viewed in the current context
       //accessing the scaffold messanger as this is of another function

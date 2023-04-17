@@ -39,3 +39,9 @@ used to push another page on top of the home page
 
 pop is used to remove the loaded page from the top of the home page
 
+Login Criteria
+
+## in our app we initally verify the username and password  from db
+## if same then we save that using shared preferences 
+## and each time whenever the user logs in the sharedpreferences is checked
+## then on logout the data is removed from the sharedpreferences
